@@ -1,0 +1,16 @@
+
+spring:
+  application:
+    name: spring-cloud-provider-demo
+
+  cloud:
+    zookeeper:
+      connect-string: 10.0.4.79:2182
+
+server:
+  port: 6091
+#logging:
+#  config: classpath:log4j2-spring.xml
+
+
+

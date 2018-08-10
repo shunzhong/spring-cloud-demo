@@ -1,0 +1,10 @@
+server:
+  port: 9081
+spring:
+  cloud:
+    zookeeper:
+      connect-string: 10.0.4.79:2182
+security:
+  oauth2:
+    resource:
+      id: oauth2_id
