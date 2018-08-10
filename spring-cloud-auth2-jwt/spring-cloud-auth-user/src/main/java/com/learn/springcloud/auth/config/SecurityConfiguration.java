@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -61,27 +60,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         // 禁用缓存
         http.headers().cacheControl();
-    }
-
-    /**
-     * The place to configure the default authenticationManager @Bean.
-     *
-     * @param auth
-     * @throws Exception
-     */
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
-        auth.inMemoryAuthentication() // creating user in memory
-                .withUser("user")
-                .password(passwordEncoder().encode("password"))
-                .roles("USER", "TRUSTED_CLIENT")
-
-                .and()
-
-                .withUser("admin")
-                .password(passwordEncoder().encode("password"))
-                .authorities("ROLE_ADMIN", "ROLE_TRUSTED_CLIENT");
     }
 
 

@@ -31,38 +31,32 @@ public class JwtTokenUtils {
     /**
      * jwt对应的参数名称  JWT_TOKEN_HEAD=Authorization
      */
-    @Value("${JWT_TOKEN_HEAD}")
-    private String TOKEN_HEAD;
+    private String TOKEN_HEAD = "Authorization";
 
     /**
      * token 的开始字符  JWT_HEADER=Bearer
      */
-    @Value("${JWT_HEADER}")
-    private String HEADER;
+    private String HEADER = "Bearer";
 
     /**
      * token的过期时间  JWT_EXPIRATION=86400
      */
-    @Value("${JWT_EXPIRATION}")
-    private String JWT_EXPIRATION;
+    private String JWT_EXPIRATION = "86400";
 
     /**
      * token签名的加密秘钥  JWT_SECRET=HFMJT
      */
-    @Value("${JWT_SECRET}")
-    private String SECRET;
+    private String SECRET = "HFMJT";
 
     /**
-     * 签发者  JWT_ISSUER=
+     * 签发者
      */
-    @Value("${JWT_ISSUER}")
-    private String ISSUER;
+    private String ISSUER = "user";
 
     /**
      * 面向的用户 JWT_SUBJECT=
      */
-    @Value("${JWT_SUBJECT}")
-    private String SUBJECT;
+    private String SUBJECT ="SUBJECT";
 
     /**
      * 产生token

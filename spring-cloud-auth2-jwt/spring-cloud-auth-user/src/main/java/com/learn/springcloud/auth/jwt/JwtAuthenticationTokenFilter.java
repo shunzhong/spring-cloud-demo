@@ -28,20 +28,9 @@ import java.util.List;
 public class JwtAuthenticationTokenFilter extends AbstractAuthenticationProcessingFilter {
 
 
-    @Value("${JWT_HEADER}")
-    private String tokenHeader;
+    private String tokenHeader = "Bearer";
 
-    @Value("${JWT_TOKEN_HEAD}")
-    private String tokenHead;
-
-    @Value("${JWT_PASS_URL}")
-    private String JWT_PASS_URL;
-
-    @Value("${JWT_PASS_URL_SPLIT}")
-    private String JWT_PASS_URL_SPLIT;
-
-    @Value("${JWT_PASS_STATIC_RESOURCE}")
-    private String JWT_PASS_STATIC_RESOURCE;
+    private String tokenHead = "Authorization";
 
 
     /**
@@ -108,52 +97,7 @@ public class JwtAuthenticationTokenFilter extends AbstractAuthenticationProcessi
      */
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest) req;
-
-        String token = request.getHeader(this.tokenHead);
-        // 所有需要放行的请求地址
-        List<String> passUrls = new ArrayList<>(10);
-
-        // 设置默认分割符
-        if (StringUtils.isEmpty(JWT_PASS_URL_SPLIT)){
-            JWT_PASS_URL_SPLIT = ",";
-        }
-        // 拒绝放行所有拦截，防止配置错误
-        if (!StringUtils.isEmpty(JWT_PASS_STATIC_RESOURCE) && !"/**".equals(JWT_PASS_STATIC_RESOURCE)) {
-            // 放行静态资源
-            if (JWT_PASS_STATIC_RESOURCE.contains(JWT_PASS_URL_SPLIT)) {
-                passUrls.addAll(Arrays.asList(JWT_PASS_STATIC_RESOURCE.split(JWT_PASS_URL_SPLIT)));
-            } else {
-                passUrls.add(JWT_PASS_STATIC_RESOURCE);
-            }
-        }
-
-        // 请求中包含token 表示需要授权
-        if (StringUtils.isEmpty(token) &&  !"/**".equals(JWT_PASS_URL) && !StringUtils.isEmpty(JWT_PASS_URL)) {
-            if (JWT_PASS_URL.contains(JWT_PASS_URL_SPLIT)) {
-                // 放行匿名访问资源
-                passUrls.addAll(Arrays.asList(JWT_PASS_URL.split(JWT_PASS_URL_SPLIT)));
-            } else {
-                passUrls.add(JWT_PASS_URL);
-            }
-        }
-
-        boolean isPass = false;
-        PathMatcher pathMatcher = new AntPathMatcher();
-        for (String passUrl : passUrls) {
-            if (pathMatcher.match(passUrl, getRequestPath(request))){
-                isPass = true;
-                break;
-            }
-        }
-
-        if (isPass) {
-            chain.doFilter(req,res);
-            return;
-        }
-
-        // 不是登录、注册、首页不用
-        super.doFilter(req, res, chain);
+           super.doFilter(req, res, chain);
 
     }
 
