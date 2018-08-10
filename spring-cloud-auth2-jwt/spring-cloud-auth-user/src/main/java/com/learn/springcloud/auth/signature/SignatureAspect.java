@@ -14,13 +14,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -31,37 +28,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 //@Aspect
 //@Component
 public class SignatureAspect {
-    /**
-     * 请求超时是否返回时间戳
-     */
-    @Value("${IS_RETURN_TIMESTAMP}")
-    private String IS_RETURN_TIMESTAMP;
-
-    /**
-     * 获取私钥
-     */
-    @Value("${RSA_PRIVATE_KEY_IOS}")
-    private String RSA_PRIVATE_KEY_IOS;
-    /**
-     * 获取请求超时时间
-     */
-    @Value("${REQUEST_EXPIRATION}")
-    private String REQUEST_EXPIRATION;
-    /**
-     * 获取公钥
-     */
-    @Value("${RSA_PUBLIC_KEY_IOS}")
-    private String RSA_PUBLIC_KEY_IOS; //ios
-
-    @Value("${RSA_PUBLIC_KEY_ANDROID}")
-    private String RSA_PUBLIC_KEY_ANDROID;  //android
-
-    @Value("${RSA_PUBLIC_KEY_PC}")
-    private String RSA_PUBLIC_KEY_PC;  //pc
-
-    @Value("${RSA_PUBLIC_KEY_WECHAT}")
-    private String RSA_PUBLIC_KEY_WECHAT;  //微信
-
 
     Logger logger = LoggerFactory.getLogger(SignatureAspect.class);
 
@@ -173,17 +139,13 @@ public class SignatureAspect {
             throw new ParameterFormatNotSupportedException("timestamp格式错误");
         }
 
-        String expirationTimeString = REQUEST_EXPIRATION == null ? "300" : REQUEST_EXPIRATION;
+        String expirationTimeString = "300";
 
         Long nowTime = System.currentTimeMillis();  //当前系统时间
         Long requestTime = Long.parseLong(requestTimestampString);
         Long expirationTime = Long.parseLong(expirationTimeString) * 1000;
 
         if (requestTime > nowTime || nowTime - requestTime > expirationTime) {
-            // 如果是dev或者test环境，返回当前时间戳，便于测试
-            if (IS_RETURN_TIMESTAMP != null && "true".equals(IS_RETURN_TIMESTAMP)) {
-                throw new SignatureException("请求超时," + nowTime);
-            }
             throw new SignatureException("请求超时");
         }
     }
@@ -203,23 +165,8 @@ public class SignatureAspect {
         }
         int appKey = NumberUtils.toInt(appKeyString);
 
-        String RsaPublicKey;
-        switch (appKey) {
-            case 100:
-                RsaPublicKey = RSA_PUBLIC_KEY_PC;
-                break;
-            case 101:
-                RsaPublicKey = RSA_PUBLIC_KEY_ANDROID;
-                break;
-            case 102:
-                RsaPublicKey = RSA_PUBLIC_KEY_IOS;
-                break;
-            case 103:
-                RsaPublicKey = RSA_PUBLIC_KEY_WECHAT;
-                break;
-            default:
-                RsaPublicKey = null;
-        }
+        String RsaPublicKey= "10";
+
         if (RsaPublicKey == null) {
             throw new ParameterFormatNotSupportedException("appKey格式错误");
         }
