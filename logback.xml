@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+属性描述 scan：性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true
+scanPeriod:设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒。
+           当scan为true时，此属性生效。默认的时间间隔为1分钟。
+debug:当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false
+-->
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+
+    <!--
+    1、实现mybatis的执行sql输出
+    2、日志按模块输出到不同的文件
+    3、在按模块输出的前提下讲错误日志归纳到统一的文件中
+    4、日志实现按天、按大小自动划分
+    5、默认每分钟自动加载一次logback.xml配置文件
+    -->
+    <!--控制台日志输出-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoder的默认实现类是ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+   <!-- &lt;!&ndash;生成单文件，示例作用。暂未使用&ndash;&gt;
+    <appender name="fileAppender" class="ch.qos.logback.core.FileAppender">
+        <file>../logs/mpd-api/mpd-api.log</file>
+
+        &lt;!&ndash; 必须指定，否则不会往文件输出内容 &ndash;&gt;
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n</pattern>
+        </encoder>
+        <append>true</append>
+        &lt;!&ndash; prudent：如果设置为true，不同JVM的file appenders能够安全地将日志输出到同一个文件&ndash;&gt;
+        <prudent>false</prudent>
+    </appender>-->
+
+
+    <!--滚动生成文件-->
+    <appender name="rollingAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <!--当天的日志-->
+        <file>../logs/mpd-api/mpd-api.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>../logs/mpd-api/mpd-api-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+
+            <!--日志保存天数，超过xx天就会被删除。单个日志文件最大500M，但日志文件总和不能超过20G-->
+            <maxHistory>30</maxHistory>
+            <maxFileSize>500MB</maxFileSize>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+        <!-- 必须指定，否则不会往文件输出内容 -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n</pattern>
+        </encoder>
+        <append>true</append>
+        <!-- prudent：如果设置为true，不同JVM的file appenders能够安全地将日志输出到同一个文件-->
+        <prudent>false</prudent>
+
+        <!-- 不印错误日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>DENY</onMatch>
+            <onMismatch>ACCEPT</onMismatch>
+        </filter>
+    </appender>
+
+    <!--错误日志输出-->
+    <appender name="errorAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>../logs/mpd-api/mpd-api-error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>../logs/mpd-api/mpd-api-error-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <maxFileSize>500MB</maxFileSize>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %thread %X{invokeNo} %logger{40} %msg%n</pattern>
+        </encoder>
+
+        <!-- 只打印错误日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!--连连支付日志管理-->
+    <appender name="llpRollingAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--当天的日志-->
+        <file>../logs/mpd-api/mpd-api-pay-llp.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>../logs/mpd-api/mpd-api-pay-llp-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+
+            <!--日志保存天数，超过xx天就会被删除-->
+            <maxHistory>30</maxHistory>
+            <maxFileSize>500MB</maxFileSize>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+        <!-- 必须指定，否则不会往文件输出内容 -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n</pattern>
+        </encoder>
+        <append>true</append>
+        <!-- prudent：如果设置为true，不同JVM的file appenders能够安全地将日志输出到同一个文件-->
+        <prudent>false</prudent>
+
+        <!--错误日志不打印-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>DENY</onMatch>
+            <onMismatch>ACCEPT</onMismatch>
+        </filter>
+    </appender>
+
+    <!--支付模块错误日志输出-->
+    <appender name="payErrorAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>../logs/mpd-api/mpd-api-pay-error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>../logs/mpd-api/mpd-api-pay-error-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <maxFileSize>500MB</maxFileSize>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %thread %X{invokeNo} %logger{40} %msg%n</pattern>
+        </encoder>
+
+        <!-- 只打印错误日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!--
+    root和logger是父子的关系，root 是默认配置，logger优先级高于root
+    logger的name属性： name值可以是包名或具体的类名，如设置为包则该包（包括子包）下的类或该类将采用此logger
+    Logger的additivity 属性作用于appender是否要叠加父级配置的appender（叠加可能导致重复输出）
+    判断一个类的日志输出：首先找到这个类所在的logger（没有特别定义则默认为root），
+                      然后确定日志输出的级别，
+                      最后确定日志最终输出路径
+    注意：任何一个类只会和一个logger对应，要么是定义的logger，要么是root
+    -->
+    <logger name="com.mpd.api" level="INFO" additivity="false">
+        <appender-ref ref="rollingAppender" />
+        <appender-ref ref="errorAppender" />
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <logger name="com.mpd.third.service.lianlianpay" level="INFO" additivity="false">
+        <appender-ref ref="llpRollingAppender" />
+        <appender-ref ref="payErrorAppender" />
+    </logger>
+
+    <logger name="com.mpd.api.dao" level="DEBUG" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <!-- root的默认level是DEBUG -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="rollingAppender"/>
+    </root>
+</configuration>

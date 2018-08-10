@@ -1,0 +1,6 @@
+server:
+  port: 9083
+spring:
+  cloud:
+    zookeeper:
+      connect-string: 10.0.4.79:2182
