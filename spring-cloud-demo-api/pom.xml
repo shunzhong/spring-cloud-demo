@@ -12,11 +12,11 @@
     <artifactId>spring-cloud-demo-api</artifactId>
 
     <dependencies>
-        <dependency>
-            <groupId>com.learn.spring-cloud</groupId>
-            <artifactId>spring-cloud-auth2-jwt</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.learn.spring-cloud</groupId>-->
+            <!--<artifactId>spring-cloud-auth2-jwt</artifactId>-->
+            <!--<version>${project.parent.version}</version>-->
+        <!--</dependency>-->
     </dependencies>
 
 </project>

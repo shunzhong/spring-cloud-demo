@@ -7,7 +7,7 @@
 <configuration status="warn" monitorInterval="30">
     <properties>
 
-        <Property name="app_name">message</Property>
+        <Property name="app_name">provider-demo</Property>
         <Property name="log_path">logs/${app_name}</Property>
 
         <!-- 项目统一日志输出格式-控制台 -->

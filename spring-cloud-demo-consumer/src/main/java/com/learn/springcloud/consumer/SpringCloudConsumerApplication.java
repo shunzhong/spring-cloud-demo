@@ -1,12 +1,12 @@
 package com.learn.springcloud.consumer;
 
-import com.learn.springcloud.dubbo.demo.SpringCloudService;
 import com.learn.springcloud.provider.SpringCloudProviderService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.annotation.Configuration;
 
 /**
  *  spring cloud demo consumer
@@ -16,7 +16,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  **/
 @SpringBootApplication
 @EnableHystrix
-@EnableFeignClients(clients = {SpringCloudProviderService.class, SpringCloudService.class})
+@EnableFeignClients(clients = {SpringCloudProviderService.class})
 @EnableDiscoveryClient
 public class SpringCloudConsumerApplication {
     public static void main(String[] args) {

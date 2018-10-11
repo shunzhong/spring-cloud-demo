@@ -1,8 +1,9 @@
 package com.learn.springcloud.consumer;
 
-import com.learn.springcloud.dubbo.demo.SpringCloudService;
+import com.learn.springcloud.provider.SpringCloudProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -15,12 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SpringCloudConsumerService {
     @Autowired
-    private SpringCloudService springCloudService;
+    private SpringCloudProviderService springCloudProviderService;
 
-    @GetMapping("callDubboBySpringCloud")
-    public String callDubboBySpringCloud() {
+    @GetMapping("sayHelloConsumer/{name}")
+    public String callDubboBySpringCloud(@PathVariable("name") String name) {
 
-        return  springCloudService.sayHelloCallDubbo("6666666");
+        return  springCloudProviderService.sayHello(name);
     }
 }
 

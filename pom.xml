@@ -11,7 +11,8 @@
 		<module>spring-cloud-demo-consumer</module>
 		<module>spring-cloud-demo-provider</module>
         <module>spring-cloud-auth2-jwt</module>
-    </modules>
+		<module>spring-cloud-admin</module>
+	</modules>
     <packaging>pom</packaging>
 
 	<name>spring-cloud demo</name>
@@ -125,6 +126,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
 			<exclusions>
 				<exclusion>
 					<groupId>org.springframework.boot</groupId>
@@ -146,8 +152,5 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
-
 	</dependencies>
-
-
 </project>
