@@ -30,7 +30,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
 
-
     @Override
     public AuthenticationManager authenticationManager() throws Exception {
 

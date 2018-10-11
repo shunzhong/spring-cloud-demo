@@ -31,8 +31,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().authenticated().and().formLogin();
-
         // 由于使用jwt，所以不需要 csrf
         http.csrf().disable()
                 .authorizeRequests()

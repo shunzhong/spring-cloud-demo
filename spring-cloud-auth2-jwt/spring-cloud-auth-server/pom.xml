@@ -11,5 +11,12 @@
 
     <artifactId>spring-cloud-auth-server</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.learn.spring-cloud</groupId>
+            <artifactId>spring-cloud-auth-user</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
 
 </project>

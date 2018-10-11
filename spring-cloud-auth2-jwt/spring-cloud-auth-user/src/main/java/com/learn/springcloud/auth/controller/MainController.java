@@ -34,14 +34,12 @@ public class MainController {
     /**
      * 获取IOS公钥
      */
-    @Value("${RSA_PUBLIC_KEY_IOS}")
     private String RSA_PUBLIC_KEY_IOS;
 
 
     /**
      * 获取IOS私钥
      */
-    @Value("${RSA_PRIVATE_KEY_IOS}")
     private String RSA_PRIVATE_KEY_IOS;
 
 
