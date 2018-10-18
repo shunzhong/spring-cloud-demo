@@ -12,6 +12,7 @@
 		<module>spring-cloud-demo-provider</module>
         <module>spring-cloud-auth2-jwt</module>
 		<module>spring-cloud-admin</module>
+		<module>spring-cloud-activiti</module>
 	</modules>
     <packaging>pom</packaging>
 

@@ -1,4 +1,4 @@
-package com.learn.springcloud.consumer;
+package com.learn.springcloud.activiti;
 
 import com.learn.springcloud.provider.SpringCloudProviderService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.learn.springcloud.consumer;
+package com.learn.springcloud.activiti;
 
 import com.learn.springcloud.provider.SpringCloudProviderService;
 import org.apache.catalina.connector.Connector;
@@ -14,7 +14,6 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.ContextClosedEvent;
 
 import java.util.concurrent.Executor;
