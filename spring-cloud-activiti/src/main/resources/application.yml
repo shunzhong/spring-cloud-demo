@@ -1,0 +1,37 @@
+server:
+  port: 6096
+
+spring:
+  application:
+    name: spring-cloud-activiti
+  cloud:
+    zookeeper:
+      connect-string: 10.0.4.195:2181
+      discovery:
+        metadata:
+#          management.context-path: /foo
+          health.path: /ping
+          user.name: user
+          user.password: password
+
+  security:
+    user:
+      name: user
+      password: password
+
+management:
+#  server:
+#    servlet:
+#      context-path: /foo
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      path-mapping:
+        health: /ping
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+debug: true
+

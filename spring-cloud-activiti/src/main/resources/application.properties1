@@ -1,0 +1,12 @@
+server.port=6092
+spring.application.name=spring-cloud-consumer-demo
+spring.cloud.zookeeper.connect-string=10.0.4.195:2181
+spring.cloud.zookeeper.discovery.metadata.health.path=/ping
+spring.cloud.zookeeper.discovery.metadata.user.name=user
+spring.cloud.zookeeper.discovery.metadata.user.password=password
+spring.security.user.password=password
+spring.security.user.name=user
+management.endpoints.web.exposure.include=*
+management.endpoints.web.path-mapping.health=/ping
+management.endpoint.health.show-details=always
+debug=true
