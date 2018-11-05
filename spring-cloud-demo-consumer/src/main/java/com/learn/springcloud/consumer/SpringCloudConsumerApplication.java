@@ -1,4 +1,4 @@
-package com.learn.springcloud.activiti;
+package com.learn.springcloud.consumer;
 
 import com.learn.springcloud.provider.SpringCloudProviderService;
 import org.apache.catalina.connector.Connector;
