@@ -6,6 +6,10 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
+
+/**
+ * 实现理论可以参考 spring in action
+ */
 @Controller
 public class SubController {
     @Autowired
