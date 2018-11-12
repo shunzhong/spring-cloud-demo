@@ -1,0 +1,14 @@
+server:
+  port: 9080
+debug: true
+
+security:
+  oauth2:
+    client:
+      client-id: my-client
+      client-secret: mysecret
+      access-token-uri: http://localhost:9081/oauth/token
+      user-authorization-uri: http://localhost:9081/oauth/authorize
+    resource:
+      user-info-uri: http://localhost:9081/me
+

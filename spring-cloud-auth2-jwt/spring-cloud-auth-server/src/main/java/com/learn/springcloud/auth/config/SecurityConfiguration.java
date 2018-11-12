@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
 /**
  * Security Config
@@ -32,10 +33,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 由于使用jwt，所以不需要 csrf
-        http.csrf().disable()
+        http.csrf().disable().antMatcher("/**")
                 .authorizeRequests()
                 // 除上面外的所有请求全部需要鉴权认证
-                .anyRequest().authenticated();
+                .antMatchers("/", "/login**", "/webjars/**").permitAll()
+                .anyRequest().authenticated()
+                .and().exceptionHandling()
+                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/"));
     }
     /**
      * The place to configure the default authenticationManager @Bean.

@@ -14,10 +14,12 @@
     <modules>
         <!--oauth2.0 授权服务-->
         <module>spring-cloud-auth-server</module>
-
         <!--oauth2.0 资源服务-->
         <module>spring-cloud-resource-server</module>
+		<!--jwt 用户登录管理-->
         <module>spring-cloud-auth-user</module>
+		<!--oauth2.0 访问受保护资源的客户端-->
+		<module>spring-cloud-auth-client</module>
     </modules>
 
     <dependencies>
